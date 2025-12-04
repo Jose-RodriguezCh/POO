@@ -2,6 +2,8 @@ from tkinter import *
 from tkinter import messagebox,ttk
 import customtkinter as ctk
 
+from controller import controlador as cont
+
 class view:
     def __init__(self,ventana):
         ventana.title("Coches_System")
@@ -92,11 +94,11 @@ class view:
         txt_velocidad=Entry(scrollbar,textvariable=velocidad,justify=RIGHT)
         txt_velocidad.pack(pady=5)
 
-        lbl_caballaje=Label(scrollbar,text="Caballaje:",justify=CENTER)
-        lbl_caballaje.pack(pady=10)
-        caballaje=StringVar()
-        txt_caballaje=Entry(scrollbar,textvariable=caballaje,justify=RIGHT)
-        txt_caballaje.pack(pady=5)
+        lbl_potencia=Label(scrollbar,text="Potencia:",justify=CENTER)
+        lbl_potencia.pack(pady=10)
+        potencia=StringVar()
+        txt_potencia=Entry(scrollbar,textvariable=potencia,justify=RIGHT)
+        txt_potencia.pack(pady=5)
 
         lbl_plazas=Label(scrollbar,text="Plazas:",justify=CENTER)
         lbl_plazas.pack(pady=10)
@@ -104,7 +106,7 @@ class view:
         txt_plazas=Entry(scrollbar,textvariable=plazas,justify=RIGHT)
         txt_plazas.pack(pady=5)
         
-        btn_guardar=Button(scrollbar,text="Guardar",command=lambda:"",justify=CENTER)
+        btn_guardar=Button(scrollbar,text="Guardar",command=lambda:cont.controlador.insertar_autos(marca.get(),color.get(),modelo.get(),velocidad.get(),potencia.get(),plazas.get()),justify=CENTER)
         btn_guardar.pack(pady=5)
         btn_volver=Button(scrollbar,text="Volver",command=lambda:view.menu_acciones(ventana,"Autos"),justify=CENTER)
         btn_volver.pack(pady=5)
@@ -113,6 +115,7 @@ class view:
     def consultar_autos(ventana):
         view.borrarPantalla(ventana)
         Label(ventana,text=".:: Consulta de Autos ::.\n",justify=CENTER).pack(pady=10)
+        #registros=cont.controlador.consultar_autos()
         registros=[
             ["1","1","1","1","1","1","1"],
             ["2","2","2","2","2","2","2"]
@@ -171,6 +174,7 @@ class view:
 
     @staticmethod
     def cambiar_autos(ventana,id_):
+        registro=cont.controlador.consultar_id_autos(id_)
         registro=[
             ["1","1","1","1","1","1","1"],
             ["2","2","2","2","2","2","2"]
@@ -228,12 +232,13 @@ class view:
             plazas.set("Pendiente")
             lbl_plazas.pack(pady=5)
                 
-            Button(scrollbar,text="Guardar",command=lambda:"").pack(pady=5)
+            Button(scrollbar,text="Guardar",command=lambda:cont.controlador.actualizar_autos(id_,marca.get(),color.get(),modelo.get(),velocidad.get(),potencia.get(),plazas.get())).pack(pady=5)
             Button(scrollbar,text="Volver",command=lambda:view.menu_acciones(ventana,"Autos")).pack(pady=5)
 
     #Vista de eliminar pantalla
     @staticmethod
     def eliminar_autos(ventana,id_):
+        #registro=cont.controlador.consultar_id_autos(id_)
         registro=[
             ["1","1","1","1","1","1","1"],
             ["2","2","2","2","2","2","2"]
@@ -254,7 +259,7 @@ class view:
             txt_id.focus()
             txt_id.pack(pady=5)
 
-            btn_eliminar=Button(ventana,text="Eliminar",command=lambda:"")
+            btn_eliminar=Button(ventana,text="Eliminar",command=lambda:cont.controlador.eliminar_autos(id_))
             btn_eliminar.pack(pady=5)
             btn_volver=Button(ventana,text="Volver",command=lambda:view.menu_acciones(ventana,"Autos"))
             btn_volver.pack(pady=5)
@@ -293,11 +298,11 @@ class view:
         txt_velocidad=Entry(scrollbar,textvariable=velocidad,justify=RIGHT)
         txt_velocidad.pack(pady=5)
 
-        lbl_caballaje=Label(scrollbar,text="Caballaje:",justify=CENTER)
-        lbl_caballaje.pack(pady=10)
-        caballaje=StringVar()
-        txt_caballaje=Entry(scrollbar,textvariable=caballaje,justify=RIGHT)
-        txt_caballaje.pack(pady=5)
+        lbl_potencia=Label(scrollbar,text="Potencia:",justify=CENTER)
+        lbl_potencia.pack(pady=10)
+        potencia=StringVar()
+        txt_potencia=Entry(scrollbar,textvariable=potencia,justify=RIGHT)
+        txt_potencia.pack(pady=5)
 
         lbl_plazas=Label(scrollbar,text="Plazas:",justify=CENTER)
         lbl_plazas.pack(pady=10)

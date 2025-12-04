@@ -28,4 +28,18 @@ Productos entregables;
 Productos entregables;
     Interaccion con todas las interfaces
     Nombre del commit: "commit_02_12_25"
+
+3 DICIEMBRE
+    1) CONTROLADOR: 
+        1.1 manu_principal()
+        1.2 manu_acciones()
+        1.3 insertar_autos()
+        1.4 consultar_autos()
+        1.5 cambiar_autos()
+        1.6 borrar_autos()
+
+Productos entregables;
+    Interaccion con la funcionalidad (controlador) de las interfaces anteriores
+    Nombre del commit: "commit_03_12_25"
+
 '''
