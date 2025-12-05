@@ -115,11 +115,7 @@ class view:
     def consultar_autos(ventana):
         view.borrarPantalla(ventana)
         Label(ventana,text=".:: Consulta de Autos ::.\n",justify=CENTER).pack(pady=10)
-        #registros=cont.controlador.consultar_autos()
-        registros=[
-            ["1","1","1","1","1","1","1"],
-            ["2","2","2","2","2","2","2"]
-        ]
+        registros=cont.controlador.consultar_autos()
         if len(registros)>0:
             columnas=("ID","Marca","Color","Modelo","Velocidad","Potencia","Plazas")
             tree_frame = ctk.CTkFrame(ventana, fg_color="transparent")
@@ -175,10 +171,6 @@ class view:
     @staticmethod
     def cambiar_autos(ventana,id_):
         registro=cont.controlador.consultar_id_autos(id_)
-        registro=[
-            ["1","1","1","1","1","1","1"],
-            ["2","2","2","2","2","2","2"]
-        ]
         if registro is None:
             messagebox.showinfo(icon="info",message="No existen este auto en la BD ...")
         else:
@@ -192,44 +184,44 @@ class view:
 
             id=IntVar()
             txt_id=Entry(scrollbar,textvariable=id,justify=RIGHT,width=5,state="readonly")
-            id.set(registro[1][0])
+            id.set(registro[0])
             txt_id.focus()
             txt_id.pack(pady=5)
 
             Label(scrollbar,text="Marca: ").pack(pady=5)
             marca=StringVar()
             txt_marca=Entry(scrollbar,textvariable=marca,justify=RIGHT)
-            marca.set("Pendiente")
+            marca.set(registro[1])
             txt_marca.pack(pady=5)
 
             Label(scrollbar,text="Color: ").pack(pady=5)
             color=StringVar()
             lbl_color=Entry(scrollbar,textvariable=color,justify=RIGHT)
-            color.set("Pendiente")
+            color.set(registro[2])
             lbl_color.pack(pady=5)
             
             Label(scrollbar,text="Modelo: ").pack(pady=5)
             modelo=StringVar()
             lbl_modelo=Entry(scrollbar,textvariable=modelo,justify=RIGHT)
-            modelo.set("Pendiente")
+            modelo.set(registro[3])
             lbl_modelo.pack(pady=5)
 
             Label(scrollbar,text="Velocidad: ").pack(pady=5)
             velocidad=StringVar()
             lbl_velocidad=Entry(scrollbar,textvariable=velocidad,justify=RIGHT)
-            velocidad.set("Pendiente")
+            velocidad.set(registro[4])
             lbl_velocidad.pack(pady=5)
 
             Label(scrollbar,text="Potencia: ").pack(pady=5)
             potencia=StringVar()
             lbl_potencia=Entry(scrollbar,textvariable=potencia,justify=RIGHT)
-            potencia.set("Pendiente")
+            potencia.set(registro[5])
             lbl_potencia.pack(pady=5)
 
             Label(scrollbar,text="Plazas: ").pack(pady=5)
             plazas=StringVar()
             lbl_plazas=Entry(scrollbar,textvariable=plazas,justify=RIGHT)
-            plazas.set("Pendiente")
+            plazas.set(registro[6])
             lbl_plazas.pack(pady=5)
                 
             Button(scrollbar,text="Guardar",command=lambda:cont.controlador.actualizar_autos(id_,marca.get(),color.get(),modelo.get(),velocidad.get(),potencia.get(),plazas.get())).pack(pady=5)
@@ -238,11 +230,8 @@ class view:
     #Vista de eliminar pantalla
     @staticmethod
     def eliminar_autos(ventana,id_):
-        #registro=cont.controlador.consultar_id_autos(id_)
-        registro=[
-            ["1","1","1","1","1","1","1"],
-            ["2","2","2","2","2","2","2"]
-        ]
+        registro=cont.controlador.consultar_id_autos(id_)
+       
         if registro is None:
             messagebox.showinfo(icon="info",message="No existen este auto en la BD ...")
         else:
@@ -255,7 +244,7 @@ class view:
             
             id=IntVar()
             txt_id=Entry(ventana,textvariable=id,width=5,justify=RIGHT,state="readonly")
-            id.set(registro[1][0])
+            id.set(registro[0])
             txt_id.focus()
             txt_id.pack(pady=5)
 
@@ -316,13 +305,13 @@ class view:
         txt_traccion=Entry(scrollbar,textvariable=traccion,justify=RIGHT)
         txt_traccion.pack(pady=5)
 
-        lbl_cerrada=Label(scrollbar,text="¿Cerrada?:",justify=CENTER)
+        lbl_cerrada=Label(scrollbar,text="¿Cerrada? (SI/NO):",justify=CENTER)
         lbl_cerrada.pack(pady=10)
         cerrada=StringVar()
         txt_cerrada=Entry(scrollbar,textvariable=cerrada,justify=RIGHT)
         txt_cerrada.pack(pady=5)
         
-        btn_guardar=Button(scrollbar,text="Guardar",command=lambda:"",justify=CENTER)
+        btn_guardar=Button(scrollbar,text="Guardar",command=lambda:cont.controlador.insertar_camionetas(marca.get(),color.get(),modelo.get(),velocidad.get(),potencia.get(),plazas.get(),traccion.get(),cerrada.get()),justify=CENTER)
         btn_guardar.pack(pady=5)
         btn_volver=Button(scrollbar,text="Volver",command=lambda:view.menu_acciones(ventana,"Camionetas"),justify=CENTER)
         btn_volver.pack(pady=5)
@@ -331,10 +320,7 @@ class view:
     def consultar_camionetas(ventana):
         view.borrarPantalla(ventana)
         Label(ventana,text=".:: Consulta de Camionetas ::.\n",justify=CENTER).pack(pady=10)
-        registros=[
-            ["1","1","1","1","1","1","1","1","1"],
-            ["2","2","2","2","2","2","2","2","2"]
-        ]
+        registros=cont.controlador.consultar_camionetas()
         if len(registros)>0:
             columnas=("ID","Marca","Color","Modelo","Velocidad","Potencia","Plazas","Traccion","Cerrada")
             tree_frame = ctk.CTkFrame(ventana, fg_color="transparent")
@@ -358,7 +344,11 @@ class view:
                 camionetas_tree.column(col, width=120, anchor="center")
 
             for item in registros:
-                fila = (item[0], item[1], item[2], item[3], item[4], item[5], item[6],item[7],item[8])
+                if item[8]==0:
+                    res="NO"
+                elif item[8==1]:
+                    res="SI"
+                fila = (item[0], item[1], item[2], item[3], item[4], item[5], item[6],item[7],res)
                 camionetas_tree.insert("", END, values=fila)
         else:
             ctk.CTkLabel(ventana, text="No hay datos para mostrar", font=ctk.CTkFont(size=16)).pack(pady=20)
@@ -388,10 +378,7 @@ class view:
         Button(ventana,text="Volver",command=lambda:view.menu_acciones(ventana,"Camionetas")).pack(pady=5)
     @staticmethod
     def cambiar_camionetas(ventana,id_):
-        registro=[
-            ["1","1","1","1","1","1","1","1","1"],
-            ["2","2","2","2","2","2","2","2","2"]
-        ]
+        registro=cont.controlador.consultar_id_camionetas(id_)
         if registro is None:
             messagebox.showinfo(icon="info",message="No existen esta camioneta en la BD ...")
         else:
@@ -405,68 +392,68 @@ class view:
 
             id=IntVar()
             txt_id=Entry(scrollbar,textvariable=id,justify=RIGHT,width=5,state="readonly")
-            id.set(registro[1][0])
+            id.set(registro[0])
             txt_id.focus()
             txt_id.pack(pady=5)
 
             Label(scrollbar,text="Marca: ").pack(pady=5)
             marca=StringVar()
             txt_marca=Entry(scrollbar,textvariable=marca,justify=RIGHT)
-            marca.set("Pendiente")
+            marca.set(registro[1])
             txt_marca.pack(pady=5)
 
             Label(scrollbar,text="Color: ").pack(pady=5)
             color=StringVar()
             lbl_color=Entry(scrollbar,textvariable=color,justify=RIGHT)
-            color.set("Pendiente")
+            color.set(registro[2])
             lbl_color.pack(pady=5)
             
             Label(scrollbar,text="Modelo: ").pack(pady=5)
             modelo=StringVar()
             lbl_modelo=Entry(scrollbar,textvariable=modelo,justify=RIGHT)
-            modelo.set("Pendiente")
+            modelo.set(registro[3])
             lbl_modelo.pack(pady=5)
 
             Label(scrollbar,text="Velocidad: ").pack(pady=5)
             velocidad=StringVar()
             lbl_velocidad=Entry(scrollbar,textvariable=velocidad,justify=RIGHT)
-            velocidad.set("Pendiente")
+            velocidad.set(registro[4])
             lbl_velocidad.pack(pady=5)
 
             Label(scrollbar,text="Potencia: ").pack(pady=5)
             potencia=StringVar()
             lbl_potencia=Entry(scrollbar,textvariable=potencia,justify=RIGHT)
-            potencia.set("Pendiente")
+            potencia.set(registro[5])
             lbl_potencia.pack(pady=5)
 
             Label(scrollbar,text="Plazas: ").pack(pady=5)
             plazas=StringVar()
             lbl_plazas=Entry(scrollbar,textvariable=plazas,justify=RIGHT)
-            plazas.set("Pendiente")
+            plazas.set(registro[6])
             lbl_plazas.pack(pady=5)
 
             Label(scrollbar,text="Traccion: ").pack(pady=5)
             traccion=StringVar()
             lbl_traccion=Entry(scrollbar,textvariable=traccion,justify=RIGHT)
-            traccion.set("Pendiente")
+            traccion.set(registro[7])
             lbl_traccion.pack(pady=5)
 
             Label(scrollbar,text="Cerrada: ").pack(pady=5)
             cerrada=StringVar()
             lbl_cerrada=Entry(scrollbar,textvariable=cerrada,justify=RIGHT)
-            cerrada.set("Pendiente")
+            if registro[8]==0:
+                cerrada.set("NO")
+            elif registro[8]==1:
+                cerrada.set("SI")
             lbl_cerrada.pack(pady=5)
                 
-            Button(scrollbar,text="Guardar",command=lambda:"").pack(pady=5)
+            Button(scrollbar,text="Guardar",command=lambda:cont.controlador.actualizar_camionetas(id_,marca.get(),color.get(),modelo.get(),velocidad.get(),potencia.get(),plazas.get(),traccion.get(),cerrada.get())).pack(pady=5)
             Button(scrollbar,text="Volver",command=lambda:view.menu_acciones(ventana,"Camionetas")).pack(pady=5)
 
     #Vista de eliminar pantalla
     @staticmethod
     def eliminar_camionetas(ventana,id_):
-        registro=[
-            ["1","1","1","1","1","1","1"],
-            ["2","2","2","2","2","2","2"]
-        ]
+        registro=cont.controlador.consultar_id_camionetas(id_)
         if registro is None:
             messagebox.showinfo(icon="info",message="No existen esta camioneta en la BD ...")
         else:
@@ -479,11 +466,11 @@ class view:
             
             id=IntVar()
             txt_id=Entry(ventana,textvariable=id,width=5,justify=RIGHT,state="readonly")
-            id.set(registro[1][0])
+            id.set(registro[0])
             txt_id.focus()
             txt_id.pack(pady=5)
 
-            btn_eliminar=Button(ventana,text="Eliminar",command=lambda:"")
+            btn_eliminar=Button(ventana,text="Eliminar",command=lambda:cont.controlador.eliminar_camionetas(id_))
             btn_eliminar.pack(pady=5)
             btn_volver=Button(ventana,text="Volver",command=lambda:view.menu_acciones(ventana,"Camionetas"))
             btn_volver.pack(pady=5)
