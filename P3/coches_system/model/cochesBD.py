@@ -102,7 +102,7 @@ class Camiones:
     def insertar(marca,color,modelo,velocidad,caballaje,plazas,eje,capacidadCarga):
         try:
             cursor.execute(
-                "INSERT INTO camoines VALUES (null,%s,%s,%s,%s,%s,%s,%s,%s)",
+                "INSERT INTO camiones VALUES (null,%s,%s,%s,%s,%s,%s,%s,%s)",
                 (marca,color,modelo,velocidad,caballaje,plazas,eje,capacidadCarga)
             )
             conexion.commit()
@@ -115,6 +115,14 @@ class Camiones:
         try:
             cursor.execute("SELECT * FROM camiones")
             return cursor.fetchall()
+        except:
+            return []
+        
+    @staticmethod
+    def consultar_id(id):
+        try:
+            cursor.execute("SELECT * FROM camiones where id=%s",(id,))
+            return cursor.fetchone()
         except:
             return []
         

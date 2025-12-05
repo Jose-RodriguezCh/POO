@@ -74,6 +74,31 @@ class controlador:
         resultado=coches.Camionetas.elminiar(id)
         controlador.respuesta_sql(resultado)
 
+    #Camiones
+    @staticmethod
+    def insertar_camiones(marca,color,modelo,velocidad,caballaje,plazas,ejes,capacidad):
+        resultado=coches.Camiones.insertar(marca,color,modelo,velocidad,caballaje,plazas,ejes,capacidad)
+        controlador.respuesta_sql(resultado)
+    
+    @staticmethod
+    def consultar_camiones():
+        resultado=coches.Camiones.consultar()
+        return resultado
+    
+    @staticmethod
+    def consultar_id_camiones(id):
+        resultado=coches.Camiones.consultar_id(id)
+        return resultado
+
+    @staticmethod
+    def actualizar_camiones(id,marca,color,modelo,velocidad,caballaje,plazas,ejes,capacidad):
+        resultado=coches.Camiones.actualizar(marca,color,modelo,velocidad,caballaje,plazas,ejes,capacidad,id)
+        controlador.respuesta_sql(resultado)
+    
+    @staticmethod
+    def eliminar_camiones(id):
+        resultado=coches.Camiones.elminiar(id)
+        controlador.respuesta_sql(resultado)
 
     @staticmethod
     def respuesta_sql(respuesta):
