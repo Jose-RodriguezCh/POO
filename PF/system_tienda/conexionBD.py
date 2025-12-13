@@ -10,4 +10,3 @@ try:
     cursor=conexion.cursor(buffered=True)
 except:
     print("En este momento no es posible comunicarse con el sistema, intentelo mas tarde...")
-
