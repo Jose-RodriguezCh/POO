@@ -12,7 +12,7 @@ class productos:
     def borrrarPantalla(ventana):
         for widget in ventana.winfo_children():
             widget.destroy()
-        # Asumo que esta función vuelve a pintar la barra de menú superior
+
         interfaz_principal.crear_menu_bar_Productos(ventana)
 
     

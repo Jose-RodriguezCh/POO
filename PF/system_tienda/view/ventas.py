@@ -19,25 +19,22 @@ class ventas:
         ventas.borrarPantalla(ventana)
         interfaz_principal.crear_menu_bar_ventas(ventana)
 
-        # --- CARGA DE DATOS PARA EL AUTOCOMPLETADO ---
+        # CARGA DE DATOS PARA EL AUTOCOMPLETADO 
         try:
             lista_productos_bd = controller.productos.consultar()
         except Exception as e:
-            # Datos de ejemplo si la BD falla
-            # lista_productos_bd = [(1, "Chocolatina Clásica", "Dulce", 0.5, 1.0, 100, 1), 
-            #                       (2, "Gomitas Sabores", "Gomita", 0.8, 1.5, 50, 2),
-            #                       (10, "Refresco Cola 2L", "Bebida", 1.5, 2.5, 30, 1)]
+        
             print(f"Error al cargar productos (usando mock data): {e}")
 
-        # --- TÍTULO ---
+        #  TÍTULO 
         titulo = ctk.CTkLabel(ventana, text="Punto de Venta", font=ctk.CTkFont(size=26, weight="bold"))
         titulo.pack(pady=(10, 10))
 
-        # --- CONTENEDOR PRINCIPAL ---
+        # CONTENEDOR PRINCIPAL 
         main_frame = ctk.CTkFrame(ventana, fg_color="transparent")
         main_frame.pack(fill=BOTH, expand=True, padx=20, pady=10)
 
-        # .:: COLUMNA IZQUIERDA: CARRITO ::.
+        #  COLUMNA IZQUIERDA: CARRITO 
         left_frame = ctk.CTkFrame(main_frame)
         left_frame.pack(side="left", fill=BOTH, expand=True, padx=(0, 10))
 
@@ -64,13 +61,13 @@ class ventas:
             ancho = 80 if col in ["ID", "Cantidad"] else 120
             carrito_tree.column(col, width=ancho, anchor="center")
 
-        # .:: COLUMNA DERECHA: CONTROLES ::.
+        #  COLUMNA DERECHA: CONTROLES 
         right_frame = ctk.CTkFrame(main_frame, width=300)
         right_frame.pack(side="right", fill="y", padx=(10, 0))
 
         ctk.CTkLabel(right_frame, text="Buscar Producto", font=ctk.CTkFont(size=16, weight="bold")).pack(pady=10)
         
-        # --- BUSCADOR CON AUTOCOMPLETADO ---
+        #  BUSCADOR CON AUTOCOMPLETADO 
         search_frame = ctk.CTkFrame(right_frame, fg_color="transparent")
         search_frame.pack(pady=(5,0), padx=20, fill="x")
         search_frame.columnconfigure(0, weight=1)
@@ -120,13 +117,13 @@ class ventas:
                 entry_cantidad.focus()
 
         lista_sugerencias.bind("<<ListboxSelect>>", seleccionar_sugerencia)
-        # --- FIN DEL BUSCADOR ---
+        # FIN DEL BUSCADOR 
 
 
         entry_cantidad = ctk.CTkEntry(right_frame, placeholder_text="Cantidad")
         entry_cantidad.pack(pady=(5, 10), padx=20, fill="x")
 
-        # --- LÓGICA DE TOTALES ---
+        #  LÓGICA DE TOTALES 
         def actualizar_total():
             total = 0.0
             for child in carrito_tree.get_children():
@@ -232,7 +229,7 @@ class ventas:
             else:
                 messagebox.showerror("Error", "No se encontró ese ID en el carrito.")
                 
-        # --- NUEVA FUNCIÓN: CANCELAR VENTA ---
+        #NUEVA FUNCIÓN: CANCELAR VENTA 
         def cancelar_venta():
             if not carrito_tree.get_children():
                 messagebox.showinfo("Atención", "El carrito ya está vacío.")
@@ -266,7 +263,7 @@ class ventas:
 
         ctk.CTkFrame(right_frame, height=2, fg_color="gray").pack(fill="x", pady=10, padx=10) 
 
-        # --- SECCIÓN DE COBRO ---
+        #  SECCIÓN DE COBRO 
         ctk.CTkLabel(right_frame, text="Resumen de Venta", font=ctk.CTkFont(size=16, weight="bold")).pack(pady=5)
 
         lbl_total = ctk.CTkLabel(right_frame, text="TOTAL A PAGAR:", font=("Arial", 12))
@@ -322,7 +319,7 @@ class ventas:
             cambio_txt = entry_cambio.get().replace("$", "")
             cambio = float(cambio_txt) if cambio_txt not in ["Falta dinero", ""] else 0
 
-            # 🔹 INSERT → UNA FILA POR PRODUCTO
+            # INSERT - UNA FILA POR PRODUCTO
             lista_prod=""
             lista_cantidad=""
             for item in carrito_tree.get_children():
@@ -362,7 +359,7 @@ class ventas:
             # Llamamos a cancelar venta para reutilizar la lógica de limpieza
             cancelar_venta() 
 
-        # --- BOTÓN CANCELAR VENTA (NUEVO) ---
+        # BOTÓN CANCELAR VENTA
         btn_cancelar = ctk.CTkButton(right_frame, text="CANCELAR VENTA", fg_color="#FF4136", hover_color="#CC0000", height=40, font=("Arial", 14, "bold"), command=cancelar_venta)
         btn_cancelar.pack(pady=(10, 5), padx=20, fill="x")
 
@@ -370,11 +367,9 @@ class ventas:
         btn_finalizar.pack(side="bottom", pady=20, padx=20, fill="x")
 
 
-        # ---------------------------------------------
-    # CONSULTAR VENTAS
-    # ---------------------------------------------
-
     
+    # CONSULTAR VENTAS
+ 
 
     @staticmethod
     def consultar(ventana):

@@ -140,11 +140,11 @@ class InventarioApp(ctk.CTkToplevel):
         for widget in self.main_frame.winfo_children():
             widget.destroy()
 
-        # ======== CONTENEDOR CENTRAL DEL DASHBOARD ========
+        # CONTENEDOR CENTRAL DEL DASHBOARD
         dashboard = ctk.CTkFrame(self.main_frame, fg_color="#F2F2F2", corner_radius=15)
         dashboard.pack(expand=True, fill="both", padx=40, pady=40)
 
-        # ======== TÍTULO PRINCIPAL ========
+        #  TÍTULO PRINCIPAL 
         titulo = ctk.CTkLabel(
             dashboard,
             text="DULCES Y BOTANAS GARY",
@@ -153,7 +153,7 @@ class InventarioApp(ctk.CTkToplevel):
         )
         titulo.pack(pady=(40, 5))
 
-        # ======== SUBTÍTULO ========
+        #  SUBTÍTULO 
         subtitulo = ctk.CTkLabel(
             dashboard,
             text="Sistema de Gestión de Inventario",
@@ -162,9 +162,9 @@ class InventarioApp(ctk.CTkToplevel):
         )
         subtitulo.pack(pady=(0, 30))
 
-        # ======== IMAGEN CENTRAL ========
+        # IMAGEN CENTRAL 
         try:
-            # Usamos PILImage en lugar de Image
+            
             ruta_base = os.path.dirname(os.path.abspath(__file__))
             ruta_imagen = os.path.join(ruta_base, "dulces.png")
 
@@ -184,11 +184,11 @@ class InventarioApp(ctk.CTkToplevel):
 
 
 
-        # ======== CONTENEDOR DE BOTONES ========
+        #  CONTENEDOR DE BOTONES 
         botones_frame = ctk.CTkFrame(dashboard, fg_color="transparent")
         botones_frame.pack(pady=20)
 
-       # ======== BOTONES GRANDES (ACCESOS RÁPIDOS) ========
+       #  BOTONES GRANDES (ACCESOS RÁPIDOS) 
 
         # FILA 1 → 2 BOTONES (Producto / Proveedor)
         btn1 = ctk.CTkButton(
@@ -218,7 +218,7 @@ class InventarioApp(ctk.CTkToplevel):
         )
         btn2.grid(row=0, column=1, padx=20, pady=15)
 
-        # FILA 2 → SOLO UN BOTÓN CENTRADO (Registrar Venta)
+        
         btn3 = ctk.CTkButton(
             botones_frame,
             text="🛒 Historial de Ventas",
@@ -230,7 +230,7 @@ class InventarioApp(ctk.CTkToplevel):
             font=ctk.CTkFont(size=18, weight="bold"),
             command=lambda: self.cambiar_contenido(ven.ventas.consultar)
         )
-        # Para centrarlo, lo ponemos en la columna 0-2 usando columnspan
+        
         btn3.grid(row=1, column=0, columnspan=2, pady=15)
 
  
@@ -246,5 +246,5 @@ class InventarioApp(ctk.CTkToplevel):
         self.cambiar_contenido(inv.inventario.consultar)
 
     def abrir_ventas(self):
-        # Importamos localmente por si acaso o usamos la importación global 'ven'
+        
         self.cambiar_contenido(ven.ventas.interfaz_venta)

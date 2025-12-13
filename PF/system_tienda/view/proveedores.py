@@ -12,7 +12,6 @@ class proveedores:
     def borrrarPantalla(ventana):
         for widget in ventana.winfo_children():
             widget.destroy()
-        # Se asume que esta función existe en tu interfaz principal
         interfaz_principal.crear_menu_bar_Provedores(ventana)
     
     # 1. CONSULTAR
@@ -95,7 +94,7 @@ class proveedores:
         form_frame = ctk.CTkFrame(ventana)
         form_frame.pack(pady=10, padx=20)
 
-        # Campos según tu modelo (Nombre, Telefono, Direccion)
+        
         entry_nombre = proveedores._crear_campo(form_frame, "Nombre:", 0)
         entry_telefono = proveedores._crear_campo(form_frame, "Teléfono:", 1)
         entry_direccion = proveedores._crear_campo(form_frame, "Dirección:", 2)
@@ -159,7 +158,7 @@ class proveedores:
                 tel = entry_telefono.get()
                 dir_ = entry_direccion.get()
 
-                # Llamada al modelo: actualizar(nombre, telefono, direccion, id)
+               
                 exito = controller.proveedores.actualizar(nom,tel,dir_,id_prov)
 
                 if exito:

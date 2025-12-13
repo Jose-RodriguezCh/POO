@@ -30,7 +30,7 @@ class inventario:
     def consultar(ventana):
         inventario.borrrarPantalla(ventana)
 
-        # ===== TÍTULO PRINCIPAL =====
+        # TÍTULO PRINCIPAL 
         titulo = ctk.CTkLabel(
             ventana,
             text="📊 Reporte General de Inventario",
@@ -44,7 +44,7 @@ class inventario:
         if len(cursor) > 0:
             contar = controller.inventario.consultar()
 
-            # ===== CONTENEDOR PRINCIPAL =====
+            #  CONTENEDOR PRINCIPAL 
             frame_totales = ctk.CTkFrame(
                 ventana, 
                 fg_color="#F1FAFF",
@@ -52,7 +52,7 @@ class inventario:
             )
             frame_totales.pack(fill="both", padx=40, pady=15)
 
-            # ===== SUBTÍTULO =====
+            # SUBTÍTULO 
             subtitulo = ctk.CTkLabel(
                 frame_totales,
                 text="Resumen del inventario",
@@ -79,9 +79,9 @@ class inventario:
                 )
                 label.pack(padx=20, pady=15, fill="x")
 
-            # ==============================
+            
             #        TARJETA 4 CON SCROLL
-            # ==============================
+           
             agotados = controller.inventario.consultar_agotado() or []
             res = f"⚠️ Productos cerca de agotarse\n\n"
             for i in agotados:
@@ -90,7 +90,7 @@ class inventario:
             tarjeta4 = ctk.CTkFrame(frame_totales, fg_color="white", corner_radius=16)
             tarjeta4.pack(fill="both", padx=25, pady=10, expand=True)
 
-            # Usamos CTkScrollableFrame
+            
             scroll_frame = ctk.CTkScrollableFrame(tarjeta4, fg_color="white")
             scroll_frame.pack(fill="both", expand=True, padx=10, pady=10)
 
@@ -112,46 +112,4 @@ class inventario:
                 font=ctk.CTkFont(size=18, weight="bold"),
                 text_color="#FF4B4B"
             ).pack(pady=20)
-            # columnas = ("ID", "Nombre", "Telefono", "Direccion")
-
-            # # Frame contenedor para Treeview y Scrollbar
-            # tree_frame = ctk.CTkFrame(ventana, fg_color="transparent")
-            # tree_frame.pack(fill=BOTH, expand=True, padx=20, pady=(0, 20))
-
-            # proveedores_tree = ttk.Treeview(
-            #     tree_frame,
-            #     columns=columnas,
-            #     show="headings",
-            #     height=12
-            # )
-
-            # # Scrollbar
-            # scrollbar = ttk.Scrollbar(tree_frame, orient="vertical", command=proveedores_tree.yview)
-            # proveedores_tree.configure(yscroll=scrollbar.set)
-            # scrollbar.pack(side="right", fill="y")
-            # proveedores_tree.pack(side="left", fill=BOTH, expand=True)
-
-            # # Estilos
-            # style = ttk.Style()
-            # style.theme_use("default")
-            # style.configure(
-            #     "Treeview",
-            #     background="#F0F0F0",
-            #     foreground="black",
-            #     rowheight=28,
-            #     fieldbackground="#F0F0F0"
-            # )
-            # style.configure(
-            #     "Treeview.Heading",
-            #     background="#D1D5DB",
-            #     foreground="black",
-            #     font=("Arial", 12, "bold")
-            # )
-
-            # for col in columnas:
-            #     proveedores_tree.heading(col, text=col)
-            #     proveedores_tree.column(col, width=150, anchor="center")
-
-            # # Insertar datos
-            # for row in cursor:
-            #     proveedores_tree.insert("", END, values=row)
+            
